@@ -58,9 +58,17 @@ npm start
 
 ## 🌐 Mettre en ligne
 
-`Dockerfile` fourni → fonctionne sur tout hébergeur Node/Docker.
+`Dockerfile` + `docker-compose.yml` fournis → fonctionne sur tout hébergeur Node/Docker.
 
-**Railway (recommandé, persistant, gratuit)** :
+**Coolify (VPS auto-hébergé)** :
+1. Pousser ce dépôt sur GitHub/GitLab (privé recommandé — l'app traite des données sensibles).
+2. Coolify → **+ New Resource** → repository → **Build Pack : Dockerfile** → **Port : 3000**.
+3. **Environment Variables** : `NODE_ENV=production`, `GEMINI_API_KEY=…`, `GEMINI_MODEL=gemini-2.5-flash`, `ADMIN_PASSWORD=` *(un mot de passe FORT)*, `DB_PATH=/app/data/app.db`.
+4. **Persistent Storage** : volume monté sur **`/app/data`** (conserve la base SQLite entre les déploiements).
+5. **Domain** : un domaine pointant vers le VPS (SSL Let's Encrypt automatique), ou le domaine `*.sslip.io` auto-généré par Coolify.
+6. **Deploy**.
+
+**Railway (alternative, persistant, gratuit)** :
 1. Pousser ce projet sur un dépôt Git, puis Railway → *Deploy from GitHub repo*.
 2. Variables : `NODE_ENV=production`, `ADMIN_PASSWORD=…`, `GEMINI_API_KEY=…`, `GEMINI_MODEL=gemini-2.5-flash`.
 3. **Settings → Volumes** : monter un volume sur **`/app/data`** (conserve la base SQLite).
