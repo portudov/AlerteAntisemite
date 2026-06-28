@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suivre ma demande</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📣</text></svg>">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container-wide topbar-inner">
+      <a class="brand" href="/"><span class="logo">🕎</span><span>Signalements</span></a>
+      <nav class="nav">
+        <a href="/">Cas vérifiés</a>
+        <a href="/signaler">Signaler</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Suivre ma demande</h1>
+      <p>Saisissez votre numéro de suivi pour connaître l'état de votre signalement.</p>
+    </section>
+
+    <div class="page">
+      <form id="form" class="card">
+        <div class="field">
+          <label for="ref">Numéro de suivi</label>
+          <input type="text" id="ref" placeholder="SIG-XXXXXX" autocomplete="off" style="text-transform:uppercase">
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Vérifier</button>
+        <div id="result" class="mt-lg"></div>
+      </form>
+    </div>
+  </main>
+
+  <div id="toasts"></div>
+  <script src="/assets/suivi.js"></script>
+</body>
+</html>

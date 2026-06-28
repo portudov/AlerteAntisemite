@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cas — Admin</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗂️</text></svg>">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container-wide topbar-inner">
+      <a class="brand" href="/admin"><span class="logo">🗂️</span><span>Administration</span></a>
+      <nav class="nav">
+        <a href="/admin">Tableau de bord</a>
+        <a href="/admin/parametres">Paramètres</a>
+        <a href="/" target="_blank">Cas publics ↗</a>
+        <a href="#" id="logout">Déconnexion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <p><a href="/admin" class="muted">← Retour au tableau de bord</a></p>
+    <div id="loading" class="empty"><span class="spinner spinner-dark"></span> Chargement…</div>
+
+    <div id="content" style="display:none">
+      <!-- 1. Le signalement -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+          <div><h2 id="title" style="margin-bottom:6px"></h2><span class="ref" id="ref"></span></div>
+          <span id="badge"></span>
+        </div>
+        <dl class="kv mt-lg">
+          <dt>Signalé par</dt><dd id="reporter"></dd>
+          <dt>Type d'acte</dt><dd id="category"></dd>
+          <dt>Personne / entité</dt><dd id="subject"></dd>
+          <dt>Date</dt><dd id="created"></dd>
+          <dt>Faits</dt><dd id="description" class="desc"></dd>
+          <dt>Preuves</dt><dd id="evidence" class="desc"></dd>
+        </dl>
+        <div id="adminNoteBox" class="note mt" style="display:none"></div>
+
+        <div class="btn-bar mt-lg">
+          <button id="btnVerify" class="btn btn-success">✓ Vérifier et publier</button>
+          <button id="btnReject" class="btn btn-danger">✕ Refuser</button>
+          <button id="btnReopen" class="btn" style="display:none">↺ Remettre à l'examen</button>
+          <button id="btnDelete" class="btn btn-ghost" style="margin-left:auto">🗑 Supprimer</button>
+        </div>
+        <p id="verifyHint" class="muted mt" style="font-size:.85rem"></p>
+      </div>
+
+      <!-- 2. Préparer le courrier -->
+      <div class="card">
+        <h2>✉️ Destinataire &amp; mail de base</h2>
+        <p class="card-sub">Choisissez le destinataire et rédigez le courrier de référence. L'IA en produira des variantes uniques pour les personnes qui voudront écrire (page campagne).</p>
+
+        <div class="row">
+          <div class="field">
+            <label for="recipient_type">Destinataire</label>
+            <select id="recipient_type">
+              <option value="">— Choisir —</option>
+              <option value="pharos">PHAROS (contenu illicite en ligne)</option>
+              <option value="prefecture">Préfecture</option>
+              <option value="employeur">Employeur</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="recipient_label">Intitulé du destinataire</label>
+            <input type="text" id="recipient_label" maxlength="200" placeholder="Ex. : Préfecture de Paris">
+          </div>
+        </div>
+        <div class="field" id="emailField">
+          <label for="recipient_email">Email du destinataire</label>
+          <input type="email" id="recipient_email" maxlength="200" placeholder="contact@…">
+          <span class="hint" id="pharosHint" style="display:none">PHAROS est un formulaire officiel : pas d'email à renseigner.</span>
+        </div>
+
+        <div class="field">
+          <label for="base_email_subject">Objet du mail de base</label>
+          <input type="text" id="base_email_subject" maxlength="300">
+        </div>
+        <div class="field">
+          <label for="base_email_body">Corps du mail de base</label>
+          <textarea id="base_email_body" maxlength="20000" style="min-height:220px"></textarea>
+        </div>
+
+        <div class="btn-bar">
+          <button id="btnGenBase" class="btn btn-primary">✨ Rédiger avec l'IA</button>
+          <button id="btnSave" class="btn">💾 Enregistrer</button>
+          <button id="btnPreview" class="btn">👁 Aperçu d'une variante</button>
+        </div>
+
+        <div class="mt-lg" style="border-top:1px solid var(--border);padding-top:16px">
+          <p class="muted" style="font-size:.88rem">Envoyer vous-même le courrier officiel :</p>
+          <div class="btn-bar">
+            <button id="btnCopy" class="btn">📋 Copier</button>
+            <a id="btnGmail" class="btn btn-success" target="_blank" rel="noopener" style="display:none">📧 Ouvrir dans Gmail</a>
+            <a id="btnPharos" class="btn btn-success" target="_blank" rel="noopener" style="display:none">🔗 Signaler sur PHAROS</a>
+          </div>
+        </div>
+
+        <div id="previewBox" class="note mt-lg" style="display:none;white-space:pre-wrap"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toasts"></div>
+  <script src="/assets/admin-common.js"></script>
+  <script src="/assets/detail.js"></script>
+</body>
+</html>

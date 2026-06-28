@@ -1,0 +1,17 @@
+{
+  "name": "signalements-app",
+  "version": "1.0.0",
+  "description": "Plateforme de signalements en libre-service : depot public, validation par un admin, et generation d'un email de reponse unique par IA (Google Gemini).",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --watch server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

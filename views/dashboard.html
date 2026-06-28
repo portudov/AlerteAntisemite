@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tableau de bord — Admin</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗂️</text></svg>">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container-wide topbar-inner">
+      <a class="brand" href="/admin"><span class="logo">🗂️</span><span>Administration</span></a>
+      <nav class="nav">
+        <a href="/admin" class="active">Tableau de bord</a>
+        <a href="/admin/parametres">Paramètres</a>
+        <a href="/" target="_blank">Voir le site ↗</a>
+        <a href="#" id="logout">Déconnexion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-wide page">
+    <div class="stats">
+      <div class="stat"><div class="num" id="cTotal">—</div><div class="lbl">Total</div></div>
+      <div class="stat"><div class="num" id="cAttente" style="color:var(--warning)">—</div><div class="lbl">À examiner</div></div>
+      <div class="stat"><div class="num" id="cVerifie" style="color:var(--success)">—</div><div class="lbl">Vérifiés</div></div>
+      <div class="stat"><div class="num" id="cRefuse" style="color:var(--danger)">—</div><div class="lbl">Refusés</div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tabs" id="tabs">
+        <button data-status="" class="active">Tous</button>
+        <button data-status="en_attente">À examiner</button>
+        <button data-status="verifie">Vérifiés</button>
+        <button data-status="refuse">Refusés</button>
+      </div>
+      <input type="text" id="search" class="search" placeholder="Rechercher (nom, objet, référence…)">
+      <a class="btn btn-sm" href="/api/admin/export.csv">⬇ Export CSV</a>
+    </div>
+
+    <div id="list" class="list"></div>
+    <div id="empty" class="empty" style="display:none">
+      <div class="big">📭</div>
+      <p>Aucun signalement à afficher.</p>
+    </div>
+  </main>
+
+  <div id="toasts"></div>
+  <script src="/assets/admin-common.js"></script>
+  <script src="/assets/dashboard.js"></script>
+</body>
+</html>

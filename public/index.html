@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cas vérifiés — agir contre l'antisémitisme</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕎</text></svg>">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container-wide topbar-inner">
+      <a class="brand" href="/"><span class="logo">🕎</span><span id="brandName">Signalements</span></a>
+      <nav class="nav">
+        <a href="/" class="active">Cas vérifiés</a>
+        <a href="/signaler">Signaler</a>
+        <a href="/suivi">Suivre</a>
+        <a href="/admin">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-wide">
+    <section class="hero">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+        <div>
+          <h1>Agir contre l'antisémitisme</h1>
+          <p id="intro"></p>
+        </div>
+        <a href="/signaler" class="btn btn-primary btn-lg" style="white-space:nowrap">➕ Signaler un acte</a>
+      </div>
+    </section>
+
+    <div class="page">
+      <div id="warn" class="alert alert-info" style="display:none"></div>
+
+      <p class="countline" id="countline"></p>
+
+      <div class="filterbar">
+        <div class="tabs" id="tabs">
+          <button data-r="" class="active">Tous</button>
+          <button data-r="pharos">PHAROS</button>
+          <button data-r="prefecture">Préfecture</button>
+          <button data-r="employeur">Employeur</button>
+        </div>
+        <input type="text" id="search" class="search" placeholder="Rechercher (objet, faits, personne…)">
+      </div>
+
+      <div id="grid" class="cases-grid"></div>
+      <div id="empty" class="empty" style="display:none">
+        <div class="big">📭</div>
+        <p id="emptyMsg">Aucun cas vérifié pour le moment.</p>
+        <a href="/signaler" class="btn btn-primary mt">Signaler un acte</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Boîte de rédaction (modale) -->
+  <div id="overlay" class="overlay" style="display:none">
+    <div class="modal card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <h2 id="mTitle" style="margin:0">Votre message</h2>
+        <button id="mClose" class="btn btn-ghost btn-sm">✕</button>
+      </div>
+      <p class="card-sub" id="mSub">Voici une proposition de message, personnalisée pour vous. Relisez, modifiez si vous le souhaitez, puis envoyez-la vous-même. Vous êtes libre de ne pas envoyer.</p>
+      <div id="mError" class="alert alert-error" style="display:none"></div>
+      <div id="mLoading" class="empty"><span class="spinner spinner-dark"></span> Génération de votre message…</div>
+      <div id="mContent" style="display:none">
+        <div class="field"><label for="mSubject">Objet</label><input type="text" id="mSubject"></div>
+        <div class="field"><label for="mBody">Message</label><textarea id="mBody" style="min-height:260px"></textarea></div>
+        <div class="btn-bar">
+          <button id="mRegen" class="btn">🔁 Autre version</button>
+          <button id="mCopy" class="btn">📋 Copier</button>
+          <a id="mGmail" class="btn btn-success" target="_blank" rel="noopener" style="display:none">📧 Ouvrir dans Gmail</a>
+          <a id="mPharos" class="btn btn-success" target="_blank" rel="noopener" style="display:none">🔗 Signaler sur PHAROS</a>
+        </div>
+        <p class="muted mt" style="font-size:.84rem" id="mHint"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+  <script src="/assets/campagne.js"></script>
+</body>
+</html>

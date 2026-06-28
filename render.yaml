@@ -1,0 +1,21 @@
+# Configuration de deploiement Render (https://render.com)
+# Importez ce depot dans Render ; ce fichier configure le service automatiquement.
+#
+# NB : sur le plan gratuit Render, le disque n'est pas persistant : la base
+# SQLite est reinitialisee a chaque redeploiement. Pour conserver durablement
+# les donnees, ajoutez un "Disk" payant monte sur /app/data, OU preferez
+# Railway / Fly.io (volume gratuit). Voir le README.
+services:
+  - type: web
+    name: signalements
+    runtime: docker
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: ADMIN_PASSWORD
+        sync: false       # a definir dans le tableau de bord Render
+      - key: GEMINI_API_KEY
+        sync: false       # a definir dans le tableau de bord Render

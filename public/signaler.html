@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signaler un acte antisémite</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕎</text></svg>">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container-wide topbar-inner">
+      <a class="brand" href="/"><span class="logo">🕎</span><span id="brandName">Signalements</span></a>
+      <nav class="nav">
+        <a href="/">Cas vérifiés</a>
+        <a href="/signaler" class="active">Signaler</a>
+        <a href="/suivi">Suivre</a>
+        <a href="/admin">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Signaler un acte antisémite</h1>
+      <p id="heroIntro"></p>
+    </section>
+
+    <div class="page">
+      <form id="form" class="card" novalidate>
+        <div id="formError" class="alert alert-error" style="display:none"></div>
+
+        <div id="calomnie" class="alert alert-warn" style="display:none"></div>
+
+        <h2>Vos coordonnées</h2>
+        <p class="card-sub">Obligatoires : un signalement est nominatif et engage votre responsabilité. Elles restent confidentielles (jamais publiées).</p>
+        <div class="row">
+          <div class="field">
+            <label for="reporter_name">Votre nom <span class="required">*</span></label>
+            <input type="text" id="reporter_name" maxlength="120" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="reporter_email">Votre email <span class="required">*</span></label>
+            <input type="email" id="reporter_email" maxlength="200" required autocomplete="email" placeholder="vous@exemple.com">
+          </div>
+        </div>
+
+        <h2 class="mt-lg">Les faits</h2>
+        <div class="row">
+          <div class="field">
+            <label for="category">Type d'acte</label>
+            <select id="category"></select>
+          </div>
+          <div class="field">
+            <label for="subject_concerned">Personne / entité concernée <span class="hint">(si connue)</span></label>
+            <input type="text" id="subject_concerned" maxlength="300" placeholder="Nom, pseudo, société…">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="title">Objet / résumé <span class="required">*</span></label>
+          <input type="text" id="title" maxlength="200" required placeholder="Ex. : Publication antisémite sur les réseaux sociaux">
+        </div>
+
+        <div class="field">
+          <label for="description">Description des faits <span class="required">*</span></label>
+          <textarea id="description" maxlength="5000" required placeholder="Quoi, quand, où, dans quel contexte. Soyez précis et factuel."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="evidence">Preuves <span class="required">*</span></label>
+          <textarea id="evidence" maxlength="5000" required placeholder="Liens vers la publication, captures hébergées (ex. lien d'image), vidéos, témoignages datés… Plus c'est documenté, mieux c'est."></textarea>
+          <span class="hint">Sans preuve vérifiable, le signalement ne pourra pas être retenu.</span>
+        </div>
+
+        <div class="field">
+          <label style="font-weight:400;font-size:.92rem;display:flex;gap:9px;align-items:flex-start">
+            <input type="checkbox" id="attestation" style="width:auto;margin-top:3px">
+            <span>J'atteste sur l'honneur que ce signalement est sincère et fondé sur des faits réels. Je comprends qu'une accusation fausse est punie par la loi.</span>
+          </label>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn btn-primary btn-lg btn-block">Envoyer le signalement</button>
+      </form>
+
+      <div id="success" class="card center" style="display:none">
+        <div class="success-illu">✅</div>
+        <h2>Signalement envoyé&nbsp;!</h2>
+        <p class="muted">Il sera examiné par notre équipe. Conservez votre numéro de suivi&nbsp;:</p>
+        <p><code class="ref-big" id="refOut"></code></p>
+        <div class="btn-bar center mt" style="justify-content:center">
+          <a id="trackLink" class="btn" href="/suivi">Suivre ma demande</a>
+          <button id="againBtn" class="btn btn-primary">Nouveau signalement</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="container"><span id="footName">Collectif de signalement</span></div>
+  </footer>
+
+  <div id="toasts"></div>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

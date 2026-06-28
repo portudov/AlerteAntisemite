@@ -1,0 +1,20 @@
+# Déploiement via Coolify (ou `docker compose up -d` directement sur le VPS).
+# Les secrets ne sont JAMAIS dans ce fichier : ils sont fournis par Coolify
+# (onglet Environment Variables) ou par un fichier .env present sur le serveur.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - GEMINI_MODEL=gemini-2.5-flash
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}      # choisir un mot de passe FORT
+      - GEMINI_API_KEY=${GEMINI_API_KEY}      # votre cle Gemini
+      - DB_PATH=/app/data/app.db
+    volumes:
+      - signalements_data:/app/data           # conserve la base entre les redemarrages
+    ports:
+      - "3000:3000"
+
+volumes:
+  signalements_data:

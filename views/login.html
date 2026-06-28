@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion admin</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body>
+  <main class="container" style="max-width:420px">
+    <div style="margin-top:9vh">
+      <div class="center" style="margin-bottom:22px">
+        <div class="success-illu">🔐</div>
+        <h1 style="margin:6px 0 0">Espace administrateur</h1>
+        <p class="muted">Connectez-vous pour gérer les signalements.</p>
+      </div>
+      <form id="form" class="card">
+        <div id="error" class="alert alert-error" style="display:none"></div>
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" autocomplete="current-password" autofocus required>
+        </div>
+        <button type="submit" id="btn" class="btn btn-primary btn-block btn-lg">Se connecter</button>
+      </form>
+      <p class="center mt"><a href="/" class="muted">← Retour au site public</a></p>
+    </div>
+  </main>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    $('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      $('error').style.display = 'none';
+      const btn = $('btn');
+      btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Connexion…';
+      try {
+        const resp = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: $('password').value }),
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error || 'Échec de la connexion.');
+        location.href = '/admin';
+      } catch (err) {
+        $('error').textContent = err.message;
+        $('error').style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Se connecter';
+      }
+    });
+  </script>
+</body>
+</html>

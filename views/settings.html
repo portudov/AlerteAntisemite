@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paramètres — Admin</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container-wide topbar-inner">
+      <a class="brand" href="/admin"><span class="logo">🗂️</span><span>Administration</span></a>
+      <nav class="nav">
+        <a href="/admin">Tableau de bord</a>
+        <a href="/admin/parametres" class="active">Paramètres</a>
+        <a href="/" target="_blank">Voir le site ↗</a>
+        <a href="#" id="logout">Déconnexion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <div id="loading" class="empty"><span class="spinner spinner-dark"></span> Chargement…</div>
+
+    <div id="content" style="display:none">
+      <!-- IA -->
+      <div class="card">
+        <h2>🤖 Intelligence artificielle (Google Gemini)</h2>
+        <p class="card-sub">La clé sert à rédiger automatiquement un email de réponse unique pour chaque signalement accepté.</p>
+        <div class="field">
+          <label for="gemini_api_key">Clé API Gemini</label>
+          <input type="password" id="gemini_api_key" placeholder="AIza…" autocomplete="off">
+          <span class="hint">Obtenez une clé gratuite sur <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>.</span>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="gemini_model">Modèle</label>
+            <input type="text" id="gemini_model" list="modelList" placeholder="gemini-2.5-flash">
+            <datalist id="modelList"></datalist>
+          </div>
+          <div class="field">
+            <label for="ai_temperature">Créativité / variété <span class="hint">(0 à 2)</span></label>
+            <input type="number" id="ai_temperature" min="0" max="2" step="0.1">
+          </div>
+        </div>
+        <div class="field">
+          <label for="ai_instructions">Règles imposées à l'IA <span class="hint">(contenu factuel, interdits…)</span></label>
+          <textarea id="ai_instructions" style="min-height:90px"></textarea>
+        </div>
+        <div class="btn-bar">
+          <button id="btnTestAi" class="btn">🔌 Tester la clé</button>
+          <span id="aiTestResult" class="muted" style="align-self:center"></span>
+        </div>
+      </div>
+
+      <!-- Modèle de mail de base -->
+      <div class="card">
+        <h2>✉️ Modèle de mail de base (par défaut)</h2>
+        <p class="card-sub">Pré-remplit le mail de base quand vous traitez un cas. L'IA produit ensuite des variantes uniques. Repères utilisables&nbsp;: <code>{{faits}}</code>, <code>{{contexte}}</code>, <code>{{mis_en_cause}}</code>.</p>
+        <div class="field">
+          <textarea id="base_email_template" style="min-height:200px"></textarea>
+        </div>
+        <div class="field">
+          <label for="email_signature">Signature <span class="hint">(facultatif)</span></label>
+          <textarea id="email_signature" style="min-height:70px"></textarea>
+        </div>
+        <div class="field">
+          <label for="calomnie_warning">Avertissement légal (affiché aux utilisateurs)</label>
+          <textarea id="calomnie_warning" style="min-height:70px"></textarea>
+        </div>
+      </div>
+
+      <!-- Organisation -->
+      <div class="card">
+        <h2>🏛️ Organisation &amp; pages publiques</h2>
+        <div class="field">
+          <label for="org_name">Nom de l'organisation / collectif</label>
+          <input type="text" id="org_name" maxlength="120">
+        </div>
+        <div class="field">
+          <label for="public_intro">Introduction — page de signalement</label>
+          <textarea id="public_intro" style="min-height:70px"></textarea>
+        </div>
+        <div class="field">
+          <label for="campaign_intro">Introduction — page campagne (cas vérifiés)</label>
+          <textarea id="campaign_intro" style="min-height:70px"></textarea>
+        </div>
+        <div class="field">
+          <label for="categories">Types d'actes <span class="hint">(un par ligne)</span></label>
+          <textarea id="categories" style="min-height:110px"></textarea>
+        </div>
+        <div class="field">
+          <label>Destinataires proposés</label>
+          <label style="font-weight:400"><input type="checkbox" id="rcpt_pharos"> PHAROS (contenu illicite en ligne)</label>
+          <label style="font-weight:400"><input type="checkbox" id="rcpt_prefecture"> Préfecture</label>
+          <label style="font-weight:400"><input type="checkbox" id="rcpt_employeur"> Employeur</label>
+        </div>
+      </div>
+
+      <div class="btn-bar mt">
+        <button id="btnSave" class="btn btn-primary btn-lg">💾 Enregistrer tous les paramètres</button>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="card mt-lg">
+        <h2>🔑 Mot de passe administrateur</h2>
+        <div class="row">
+          <div class="field">
+            <label for="pwCurrent">Mot de passe actuel</label>
+            <input type="password" id="pwCurrent" autocomplete="current-password">
+          </div>
+          <div class="field">
+            <label for="pwNext">Nouveau mot de passe</label>
+            <input type="password" id="pwNext" autocomplete="new-password">
+          </div>
+        </div>
+        <button id="btnPw" class="btn">Modifier le mot de passe</button>
+      </div>
+    </div>
+  </main>
+
+  <div id="toasts"></div>
+  <script src="/assets/admin-common.js"></script>
+  <script src="/assets/settings.js"></script>
+</body>
+</html>
