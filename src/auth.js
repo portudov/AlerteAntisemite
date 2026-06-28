@@ -55,8 +55,12 @@ export function isAuthed(req) {
   return verifyToken(parseCookies(req)[COOKIE_NAME]);
 }
 
-export function setAuthCookie(res) {
-  const secure = process.env.NODE_ENV === 'production';
+export function setAuthCookie(res, req) {
+  // Marque "Secure" uniquement si la requete arrive reellement en HTTPS
+  // (derriere le proxy Coolify/Traefik : en-tete x-forwarded-proto).
+  const proto = String(req?.headers?.['x-forwarded-proto'] || (req?.secure ? 'https' : 'http'))
+    .split(',')[0].trim();
+  const secure = proto === 'https';
   res.append(
     'Set-Cookie',
     `${COOKIE_NAME}=${issueToken()}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${MAX_AGE_S}` +

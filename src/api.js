@@ -189,7 +189,7 @@ api.post('/login', limitLogin, (req, res) => {
   if (!verifyPassword(pw, getSetting('admin_password_hash'))) {
     return res.status(401).json({ error: 'Mot de passe incorrect.' });
   }
-  setAuthCookie(res);
+  setAuthCookie(res, req);
   res.json({ ok: true });
 });
 
